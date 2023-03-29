@@ -5,12 +5,11 @@ var Stack = function() {
   var idx = 0;
 
   var someInstance = {
-    push: stackMethods.push,
-    pop: stackMethods.pop,
-    size: stackMethods.size,
     storage: storage,
     idx: idx
   };
+
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
