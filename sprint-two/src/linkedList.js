@@ -1,44 +1,52 @@
 var LinkedList = function() {
-  var list = {};
-  list.head = null;
-  list.tail = null;
+  var list = {};                                                // O(1)
+  list.head = null;                                             // O(1)
+  list.tail = null;                                             // O(1)
 
   list.addToTail = function(value) {
-    if (list.head === null) {
-      list.head = Node(value);
-      list.tail = Node(value);
-      return;
+    var newNode = Node(value);                                  // O(1)
+    if (list.head === null) {                                   // O(1)
+      list.head = newNode;                                      // O(1)
+    } else {                                                    // O(1)
+      list.tail.next = newNode;                                 // O(1)
     }
-    list.tail.next = Node(value);
-    if (list.head.next === null) {
-      list.head.next = list.tail.next;
-    }
-    list.tail = list.tail.next;
+    list.tail = newNode;                                        // O(1)
   };
+
+  // overall time complexity: O(1)
 
   list.removeHead = function() {
-    if (list.head === null) {
-      return;
+    if (list.head === null) {                                  // O(1)
+      return null;                                             // O(1)
     }
-    var last = list.head.value;
-    list.head = list.head.next;
-    return last;
+    var last = list.head.value;                                // O(1)
+    list.head = list.head.next;                                // O(1)
+    if (list.head === null) {                                  // O(1)
+      list.tail = null;                                        // O(1)
+    }
+    return last;                                               // O(1)
   };
+
+  // overall time complexity: O(1)
 
   list.contains = function(target, node) {
-      if (node === undefined) {
-        node = list.head;
+      console.log('list: ', list);
+      if (node === undefined) {                                       // O(1)
+        node = list.head;                                             // O(1)
+      }                                                               // O(1)
+      console.log('node: ', node);
+      if (node === null) {                                            // O(1)
+        return false;                                                 // O(1)
       }
-      if (node.value === target) {
-        return true;
+      if (node.value === target) {                                    // O(1)
+        return true;                                                  // O(1)
       }
-      if (node.next !== null) {
-        return list.contains(target, node.next)
-      }
-      return false;
+      return list.contains(target, node.next);                        // O(1)
   };
 
-  return list;
+  // b/c contains called recursively n times, overall time complexity is O(n)
+
+  return list;                                                        // O(1)
 };
 
 var Node = function(value) {
