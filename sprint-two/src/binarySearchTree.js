@@ -12,12 +12,14 @@ BinarySearchTree.prototype.insert = function(val) {
     } else {
       this.left.insert(val);
     }
-  } else {
+  } else if (val > this.value) {
     if (this.right === undefined) {
       this.right = new BinarySearchTree(val);
     } else {
       this.right.insert(val);
     }
+  } else {
+    return;
   }
 }
 
@@ -42,41 +44,15 @@ BinarySearchTree.prototype.depthFirstLog = function(cb) {
   // else, return callback on this.value
   // if this.right is not undefined, return callback on this.right
   // else, return callback on this.value
-  var traverseLeft = function () {
-    if (this.left !== undefined) {
-      return this.left.depthFirstLog(cb);
-    }
-    if (this.right !== undefined) {
-      return this.right.depthFirstLog(cb);
-    }
-  }
-
-  var traverseRight = function () {
-    if (this.right !== undefined) {
-      return this.right.depthFirstLog(cb);
-    }
-    if (this.left !== undefined) {
-      return this.left.depthFirstLog(cb);
-    }
-  }
-
   cb(this.value);
-  traverseLeft();
-  traverseRight();
-
+  if (this.left !== undefined) {
+    this.left.depthFirstLog(cb);
+  }
+  if (this.right !== undefined) {
+    this.right.depthFirstLog(cb);
+  }
 }
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
-// var myTree = new BinarySearchTree(6);
-// myTree.insert(5);
-// myTree.insert(4);
-// myTree.insert(3);
-// myTree.insert(6);
-// myTree.insert(7);
-// myTree.insert(8);
-// console.log(myTree);
